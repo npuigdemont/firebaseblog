@@ -159,6 +159,6 @@ nav {
     transform: translateX(0);
 }
 .mobile-nav-leave-to {
-
+    transform: translateX(-250);
 }
 </style>

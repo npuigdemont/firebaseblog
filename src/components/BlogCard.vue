@@ -1,66 +1,33 @@
 <template>
-  <div class="home">
-    <BlogPost :post="welcomeScreen"/>
-    <BlogPost :post="post" v-for="(post, index) in sampleBlogPost" :key="index"/>
-    <div class="blog-card-wrap">
-      <div class="container">
-        <h3>View more recent posts</h3>
-          <div class="blog-cards">
-            <BlogCard :post="post" v-for="(post, index) in sampleBlogCards" :key="index"/>
+  <div class="blog-card">
+      <div class="icons">
+          <div class="icon">
+              <b-icon icon="pencil-square" class="icon" scale="1"></b-icon>
+          </div>
+              <div class="icon">
+              <b-icon icon="trash-fill" class="icon" scale="1"></b-icon>
           </div>
       </div>
-    </div>
+      <img :src="require(`../assets/blogCards/${post.blogCoverPhoto}.jpg`)" alt="">
+
+      <div class="info">
+          <h4>{{post.blogTitle}}</h4>
+          <h6>Posted on: {{post.blogDate}}</h6>
+          <router-link class="link" to="#">
+              View the post <b-icon icon="arrow-right-circle-fill" class="arrow" scale="1"></b-icon>
+          </router-link>
+      </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import BlogPost from '../components/BlogPost.vue'
-import BlogCard from '../components/BlogCard.vue'
-
 export default {
-  name: 'HomeView',
-  components: {
-    BlogPost,
-    BlogCard
-},
-  data(){
-    return {
-      welcomeScreen: {
-          title: "Welcome",
-        blogPost:
-          "Weekly blog articles with all things programming including HTML, CSS, JavaScript and more. Register today to never miss a post!",
-        welcomeScreen: true,
-        photo: "coding",
-      },
-      sampleBlogPost: [
-       { title: "This is a filter title",
-        blogHTML: "This is a filter blog post-stories",
-        blogCoverPhoto: "beautiful-stories"},
-        { title: "This is a filter title 2",
-        blogHTML: "This is a filter blog post-stories",
-        blogCoverPhoto: "designed-for-everyone"},
-      ],
-      sampleBlogCards: [
-        {blogTitle: "Blog Card #1", blogCoverPhoto: "stock-1", blogDate: "May 1, 2022"},
-        {blogTitle: "Blog Card #2", blogCoverPhoto: "stock-2", blogDate: "May 4, 2022"},
-        {blogTitle: "Blog Card #3", blogCoverPhoto: "stock-3", blogDate: "May 9, 2022"},
-        {blogTitle: "Blog Card #4", blogCoverPhoto: "stock-4", blogDate: "May 11, 2022"},
-      ],
-    }
-  }
+ name: 'blogCard',
+ props: ["post"],
 }
 </script>
 
 <style lang="scss" scoped>
-.blog-card-wrap {
-  h3{
-    font-weight: 300;
-    font-size: 28px;
-    margin-bottom: 32px;
-  }
-}
-
 .blog-card {
   position: relative;
   cursor: pointer;
@@ -153,4 +120,3 @@ export default {
   }
 }
 </style>
-
