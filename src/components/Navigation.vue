@@ -15,7 +15,7 @@
              </ul>
          </div>
       </nav>
-        <b-icon icon="three-dots-vertical" cursor scale="1" class="menu-icon" @click="toggleMobileNav" v-show="mobile"></b-icon>
+        <b-icon icon="three-dots-vertical" scale="1" class="menu-icon" @click="toggleMobileNav" v-show="mobile"></b-icon>
         <transition name="mobile-nav">
             <ul class="mobile-nav" v-show="mobileNav">
                  <router-link class="link" to="#">Home</router-link>
