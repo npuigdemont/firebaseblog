@@ -10,7 +10,8 @@
 
 import Navigation from './components/Navigation.vue'
 import Footer from './components/Footer.vue'
-
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 
 export default {
   name: "app",
@@ -22,8 +23,18 @@ export default {
     }
   },
   created() {
+    firebase.auth().onAuthStateChanged((user)=> {
+      
+    })
+    
     //renderitza amb el condicional d'activació de navegador i footer
     this.checkRoute();
+    //No cal fer si està implementat a main.js
+    //esperem la comprovació de la base de dades per veure si està registrat abans de carregar
+    //setTimeout(()=> {console.log(firebase.auth().currentUser)}, 2000)
+
+    //ensenyem l'usuari a l'inici després de registar-se
+    //console.log(firebase.auth().currentUser);
   },
   methods: {
     checkRoute() {

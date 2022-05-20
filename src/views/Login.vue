@@ -15,9 +15,10 @@
                   <input type="password" placeholder="Password" v-model="password">
                   <b-icon icon="file-lock" class="icon" scale="1"></b-icon>
               </div>
+              <div v-show="error" class="error">{{this.errorMessage}}</div>
           </div>
           <router-link class="forgot-password" :to="{name: 'ForgotPassword'}"> Forgot your password? </router-link>
-        <button>Sign in </button>
+        <button @click.prevent="signIn">Sign in </button>
         <div class="angle"></div>
       </form>
     <div class="background"></div>
@@ -25,15 +26,37 @@
 </template>
 
 <script>
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+
 export default {
     name: 'Login',
     data() {
         return {
-            email: null,
-            password: null
+            email: "",
+            password: "",
+            error: null,
+            errorMessage: ""
         }
+    },
+    methods: {
+      signIn() {
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.email, this.password)
+          .then(()=> {
+            this.$router.push({name: 'home'});
+            this.error = false;
+            this.errorMessage = "";
+            console.log(firebase.auth().currentUser.uid);
+        }).catch(err => {
+          this.error = true;
+          this.errorMessage = err.message;
+        })
+      }
     }
 }
+
 </script>
 
 <style lang="scss">
