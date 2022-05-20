@@ -1,8 +1,8 @@
 <template>
   <div class="app">
-    <Navigation />
+    <Navigation v-if="!navigation"/>
     <router-view/>
-    <Footer />
+    <Footer v-if="!navigation"/>
   </div>
 </template>
 
@@ -14,11 +14,36 @@ import Footer from './components/Footer.vue'
 
 export default {
   name: "app",
-  components: { Navigation, Footer }
+  components: { Navigation, Footer },
+  data() {
+    return {
+      //desactivem el nav a login, register i forgotPassword
+      navigation: null,
+    }
+  },
+  created() {
+    //renderitza amb el condicional d'activació de navegador i footer
+    this.checkRoute();
+  },
+  methods: {
+    checkRoute() {
+      //desactivem el nav a login, register i forgotPassword
+      if(this.$route.name === "Login" || this.$route.name === "Register" || this.$route.name === "ForgotPassword") {
+        this.navigation = true;
+        return;
+      } this.navigation = false;
+    }
+  },
+  watch: {
+    $route() {
+      //desactivem el nav a login, register i forgotPassword
+      this.checkRoute();
+    }
+  }
 }
 </script>
 
-<style>
+<style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
 * {
@@ -53,20 +78,68 @@ export default {
   margin-left: 8px;
   width: 14px;
   color: #000;
-  
 }
 .arrow-light {
     color: #fff;
   }
+
+button,
+.router-button {
+  transition: 500ms ease all;
+  cursor: pointer;
+  margin-top: 24px;
+  padding: 12px 24px;
+  background-color: #303030;
+  color: #fff;
+  border-radius: 20px;
+  border: none;
+  text-transform: uppercase;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: rgba(48, 48, 48, 0.7);
+  }
+}
+.button-ghost {
+  color: #000;
+  padding: 0;
+  border-radius: 0;
+  margin-top: 50px;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: transparent;
+  @media (min-width: 700px) {
+    margin-top: 0;
+    margin-left: auto;
+  }
+  i {
+    margin-left: 8px;
+  }
+}
+.button-light {
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+}
+.button-inactive {
+  pointer-events: none !important;
+  cursor: none !important;
+  background-color: rgba(128, 128, 128, 0.5) !important;
+}
+.error {
+  text-align: center;
+  font-size: 12px;
+  color: red;
+}  
 .blog-card-wrap {
   position: relative;
   padding: 80px 16px;
   background-color: #f1f1f1;
-  @media(min-width: 500px){
-    padding:  100px 16px;
+  @media (min-width: 500px) {
+    padding: 100px 16px;
   }
-  }
-.blog-cards {
+  .blog-cards {
     display: grid;
     gap: 32px;
     grid-template-columns: 1fr;
@@ -80,6 +153,7 @@ export default {
       grid-template-columns: repeat(4, 1fr);
     }
   }
+}
 
 </style>
 

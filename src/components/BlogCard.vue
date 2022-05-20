@@ -1,11 +1,11 @@
 <template>
   <div class="blog-card">
-      <div class="icons">
+      <div v-show="editPost" class="icons">
           <div class="icon">
-              <b-icon icon="pencil-square" class="icon" scale="1"></b-icon>
+              <b-icon icon="pencil-square" class="edit" scale="1"></b-icon>
           </div>
               <div class="icon">
-              <b-icon icon="trash-fill" class="icon" scale="1"></b-icon>
+              <b-icon icon="trash-fill" class="delete" scale="1"></b-icon>
           </div>
       </div>
       <img :src="require(`../assets/blogCards/${post.blogCoverPhoto}.jpg`)" alt="">
@@ -24,6 +24,11 @@
 export default {
  name: 'blogCard',
  props: ["post"],
+ computed: {
+   editPost() {
+     return this.$store.state.editPost;
+   }
+ }
 }
 </script>
 
@@ -60,9 +65,7 @@ export default {
         background-color: #303030;
         .edit,
         .delete {
-          path {
-            fill: #fff;
-          }
+         color: #fff; 
         }
       }
       &:nth-child(1) {
@@ -114,7 +117,7 @@ export default {
         color: rgba(48, 48, 48, 0.8);
       }
       .arrow {
-        width: 10px;
+        width: 12px;
       }
     }
   }

@@ -8,20 +8,20 @@
          </div>
          <div class="nav-links">
              <ul v-show="!mobile">
-                 <router-link class="link" to="#">Home</router-link>
-                 <router-link class="link" to="#">Blogs</router-link>
+                 <router-link class="link" :to="{name: 'home'}">Home</router-link>
+                 <router-link class="link" :to="{name: 'Blogs'}">Blogs</router-link>
                  <router-link class="link" to="#">Create Posts</router-link>
-                 <router-link class="link" to="#">Login / Register</router-link>
+                 <router-link class="link" :to="{name: 'Login'}">Login / Register</router-link>
              </ul>
          </div>
       </nav>
         <b-icon icon="three-dots-vertical" scale="1" class="menu-icon" @click="toggleMobileNav" v-show="mobile"></b-icon>
         <transition name="mobile-nav">
             <ul class="mobile-nav" v-show="mobileNav">
-                 <router-link class="link" to="#">Home</router-link>
-                 <router-link class="link" to="#">Blogs</router-link>
+                 <router-link class="link" :to="{name: 'home'}">Home</router-link>
+                 <router-link class="link" :to="{name: 'Blogs'}">Blogs</router-link>
                  <router-link class="link" to="#">Create Posts</router-link>
-                 <router-link class="link" to="#">Login / Register</router-link>
+                 <router-link class="link" :to="{name: 'Login'}">Login / Register</router-link>
              </ul>
         </transition>
   </header>
@@ -159,6 +159,6 @@ nav {
     transform: translateX(0);
 }
 .mobile-nav-leave-to {
-    transform: translateX(-250);
+    transform: translateX(-250px);
 }
 </style>
